@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('peo_phone');
             $table->date('peo_dateBirth');
             $table->text('peo_image');
+            $table->boolean('peo_status');
             $table->timestamps();
         });
     }
