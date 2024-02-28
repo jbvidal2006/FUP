@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('pro_certs');
             $table->text('pro_image');
             $table->string('pro_unit');
+            $table->string('pro_status');
             $table->foreignId('providers_id')->references('id')->on('providers');
             $table->foreignId('categories_id')->references('id')->on('categories');
             $table->timestamps();

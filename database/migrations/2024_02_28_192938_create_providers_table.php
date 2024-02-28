@@ -17,7 +17,8 @@ return new class extends Migration
             $table->text('prov_imageRanking');
             $table->string('prov_email', 40);
             $table->string('prov_group', 100);
-            $table->text('description');
+            $table->text('prov_description');
+            $table->text('prov_status');
             $table->foreignId('people_peo_id')->references('id')->on('people');
             $table->timestamps();
         });
