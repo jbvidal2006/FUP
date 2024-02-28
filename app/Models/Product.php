@@ -11,11 +11,13 @@ class Product extends Model
     protected $fillable = [
         'pro_name',
         'pro_type',
-        'pro_amount',
         'pro_price',
-        'pro_image',
         'pro_certs',
-        'categories_cat_id'
+        'pro_image',
+        'pro_unit',
+        'pro_status',
+        'providers_id',
+        'categories_id'
 
     ];
 }

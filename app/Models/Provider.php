@@ -15,6 +15,8 @@ class Provider extends Model
         'prov_imageRanking',
         'prov_email',
         'prov_group',
-        'people_peo_id'
+        'prov_description',
+        'prov_status',
+        'people_id'
     ];
 }

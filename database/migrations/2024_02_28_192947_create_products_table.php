@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('pro_name',80);
             $table->string('pro_type',40);
-            $table->Integer('pro_amount');
+            $table->Integer('pro_price');
             $table->string('pro_certs');
             $table->text('pro_image');
             $table->string('pro_unit');
-            $table->string('pro_status');
+            $table->boolean('pro_status');
             $table->foreignId('providers_id')->references('id')->on('providers');
             $table->foreignId('categories_id')->references('id')->on('categories');
             $table->timestamps();
