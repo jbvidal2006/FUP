@@ -14,7 +14,8 @@ class People extends Model
         'peo_adress',
         'peo_phone',
         'peo_dateBirth',
-        'peo_image'
+        'peo_image',
+        'peo_status'
 
     ];
 }
