@@ -12,7 +12,8 @@ class RequestsAppController extends Controller
      */
     public function index()
     {
-        //
+        $requestApp = RequestApp::all();
+        return response()->json($requestApp);
     }
 
     /**
@@ -28,7 +29,28 @@ class RequestsAppController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            // Validar los datos de entrada
+            $validatedData = $request->validate([
+                'req_dateRequest' => 'required|date',
+                'rep_type' => 'required|string|max:80',
+                'req_status' => 'required',
+                'people_id' => 'required|integer'
+            ]);
+
+            $provider = new RequestApp($validatedData);
+            $provider->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully request create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
     }
 
     /**
@@ -36,7 +58,7 @@ class RequestsAppController extends Controller
      */
     public function show(RequestApp $requestApp)
     {
-        //
+        return response()->json(['status'=>true, 'data'=>$requestApp]);
     }
 
     /**
@@ -52,7 +74,28 @@ class RequestsAppController extends Controller
      */
     public function update(Request $request, RequestApp $requestApp)
     {
-        //
+        try {
+            // Validar los datos de entrada
+            $validatedData = $request->validate([
+                'req_dateRequest' => 'required|date',
+                'rep_type' => 'required|string|max:80',
+                'req_status' => 'required',
+                'people_id' => 'required|integer'
+            ]);
+
+            $provider = new RequestApp($validatedData);
+            $provider->update();
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully request update"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
     }
 
     /**
@@ -60,6 +103,10 @@ class RequestsAppController extends Controller
      */
     public function destroy(RequestApp $requestApp)
     {
-        //
+        $requestApp->delete();
+        return response()->json([
+            'status'=> true,
+            'message'=>"successfully request delete"
+        ],200);
     }
 }
