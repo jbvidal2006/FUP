@@ -83,8 +83,7 @@ class RequestsAppController extends Controller
                 'people_id' => 'required|integer'
             ]);
 
-            $provider = new RequestApp($validatedData);
-            $provider->update();
+            $requestApp->update($validatedData);
 
             return response()->json([
                 'status' => true,

@@ -17,6 +17,6 @@ class Provider extends Model
         'prov_group',
         'prov_description',
         'prov_status',
-        'people_id'
+        'people_peo_id'
     ];
 }

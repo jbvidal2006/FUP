@@ -65,7 +65,6 @@ class ProviderController extends Controller
     public function update(Request $request, Provider $provider)
     {
         try {
-            // Validar los datos de entrada
             $validatedData = $request->validate([
                 'prov_ranking' => 'required|integer',
                 'prov_imageRanking' => 'required',
@@ -76,13 +75,13 @@ class ProviderController extends Controller
                 'people_peo_id' => 'required'
             ]);
 
-            $provider = new Provider($validatedData);
-            $provider->update();
+            $provider->update($validatedData);
 
 
             return response()->json([
                 'status' => true,
-                'message' => "successfully update"
+                'message' => "successfully update",
+                "data" => $provider
             ], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([

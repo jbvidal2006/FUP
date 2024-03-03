@@ -81,8 +81,8 @@ class SalesController extends Controller
                 'products_id' => 'required|integer'
             ]);
 
-            $provider = new Sales($validatedData);
-            $provider->update();
+
+            $sales->update($validatedData);
 
             return response()->json([
                 'status' => true,

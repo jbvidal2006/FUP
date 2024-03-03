@@ -45,14 +45,15 @@ class PeopleController extends Controller
             ]);
 
 
-            $product = new People($validatedData);
-            $product->save();
+            $people = new People($validatedData);
+            $people->save();
 
 
             return response()->json([
                 'status' => true,
-                'message' => "successfully people create"
-            ], 200);
+                'message' => "successfully people create",
+                'data' => $people
+            ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
@@ -94,50 +95,33 @@ class PeopleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'peo_name' => 'required|string|max:80',
-            'peo_lastName' => 'required|string|max:80',
-            'peo_adress' => 'required',
-            'peo_phone' => 'required|integer|digits:10',
-            'peo_dateBirth' => 'required|date',
-            'peo_image' => 'required|string',
-            'peo_status' => 'required'
-        ];
-        $Validator =  Validator($request->input(), $rules);
-        if ($Validator->fails()) {
+        try {
+            $validatedData = $request->validate([
+                'peo_name' => 'required|string|max:80',
+                'peo_lastName' => 'required|string|max:80',
+                'peo_adress' => 'required',
+                'peo_phone' => 'required|integer|digits:10',
+                'peo_dateBirth' => 'required|date',
+                'peo_image' => 'required|string',
+                'peo_status' => 'required'
+            ]);
+
+
+            $people = new People($validatedData);
+            $people->update();
+
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully people create",
+                'data' => $people
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $Validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-        // Intenta encontrar el modelo People por el ID proporcionado
-        $people = People::find($id);
-
-        // Verifica si el modelo fue encontrado
-        if (!$people) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Person not found'
-            ],  404);
-        }
-
-        // Actualiza los atributos del modelo y guarda los cambios
-        $people->update($request->only([
-            'peo_name',
-            'peo_lastName',
-            'peo_adress',
-            'peo_phone',
-            'peo_dateBirth',
-            'peo_image',
-            'peo_status'
-        ]));
-
-
-
-        return response()->json([
-            'status' => true,
-            'message' => "successfully people update"
-        ], 200);
     }
 
     /**

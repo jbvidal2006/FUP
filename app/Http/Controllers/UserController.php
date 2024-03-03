@@ -63,8 +63,8 @@ class UserController extends Controller
                 'people_id' => 'sometimes|required'
             ]);
 
-            $user = new User($validatedData);
-            $user->update();
+
+            $user->update($validatedData);
 
             return response()->json([
                 'status' => true,
