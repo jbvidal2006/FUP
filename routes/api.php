@@ -8,7 +8,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\EnlacesController;
 
@@ -39,7 +38,6 @@ Route::resource('requeste',RequestsAppController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);
 Route::resource('provider', ProviderController::class);
-Route::resource('contact', ContactController::class);
 Route::get('auth/logout', [AuthController::class, 'logout']);
 
 /*rutas adicionales-- para traer personas y provedores
