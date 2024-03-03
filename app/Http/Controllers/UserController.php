@@ -12,47 +12,69 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return response()->json($users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'use_phone' => 'required|unique:users',
+                'use_password' => 'required',
+                'use_rol' => 'required',
+                'use_status' => 'required',
+                'people_id' => 'required'
+            ]);
+
+            $user = User::create($validatedData);
+
+            return response()->json([
+                'status' => true,
+                'message' => "User successfully created",
+                'data' => $user
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(User $user)
     {
-        //
+        return response()->json(['status' => true, 'data' => $user]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, User $user)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'use_phone' => 'required|unique:users,use_phone,' . $user->id,
+                'use_password' => 'sometimes|required',
+                'use_rol' => 'sometimes|required',
+                'use_status' => 'sometimes|required',
+                'people_id' => 'sometimes|required'
+            ]);
+
+            $user->update($validatedData);
+
+            return response()->json([
+                'status' => true,
+                'message' => "User successfully updated",
+                'data' => $user
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
     }
 
     /**
@@ -60,6 +82,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => "User successfully deleted"
+        ], 200);
     }
 }
