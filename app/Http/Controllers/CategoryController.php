@@ -23,24 +23,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'cat_name' => 'required|string|min:1|max:250',
-        ];
-        $validator = Validator($request->input(), $rules);
+        try {
+            $validatedData = $request->validate([
+                'cat_name' => 'required|string|max:255',
+                'cat_status' => 'required',
 
-        if ($validator->fails()) {
+            ]);
+
+            $Category = new Category($validatedData);
+            $Category->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => "User successfully created",
+                'data' => $Category
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-
-        $categories = new Category($request->input());
-        $categories->save();
-        return response()->json([
-            'status' => true,
-            'message' => "successfully category create"
-        ], 200);
     }
 
     /**
@@ -56,19 +59,27 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $rules = ['cat_name' => 'required|string|min:1|max:40'];
-        $validator = Validator($request->input(), $rules);
-        if ($validator->fails()) {
+        try {
+            $validatedData = $request->validate([
+                'cat_name' => 'required|string|max:255',
+                'cat_status' => 'required',
+
+            ]);
+
+            $Category = new Category($validatedData);
+            $Category->update();
+
+            return response()->json([
+                'status' => true,
+                'message' => "User successfully created",
+                'data' => $Category
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-        $category->update($request->input());
-        return response()->json([
-            'status' => true,
-            'message' => "successfully category update"
-        ], 200);
     }
 
 

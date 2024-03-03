@@ -29,7 +29,8 @@ class UserController extends Controller
                 'people_id' => 'required'
             ]);
 
-            $user = User::create($validatedData);
+            $user = new User($validatedData);
+            $user->save();
 
             return response()->json([
                 'status' => true,
@@ -62,7 +63,8 @@ class UserController extends Controller
                 'people_id' => 'sometimes|required'
             ]);
 
-            $user->update($validatedData);
+            $user = new User($validatedData);
+            $user->update();
 
             return response()->json([
                 'status' => true,
