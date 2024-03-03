@@ -24,13 +24,15 @@ class ProductController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'prov_ranking' => 'required|integer',
-                'prov_imageRanking' => 'required|url',
-                'prov_email' => 'required|email',
-                'prov_group' => 'required|string',
-                'prov_description' => 'required|string',
-                'prov_status' => 'required',
-                'people_peo_id' => 'required'
+                'pro_name' => 'required|string|max:255',
+                'pro_type' => 'required|string|max:255',
+                'pro_price' => 'required',
+                'pro_certs' => 'required|string|max:255',
+                'pro_image' => 'required|image',
+                'pro_unit' => 'required|string|max:255',
+                'pro_status' => 'required',
+                'providers_id' => 'required',
+                'categories_id' => 'required'
             ]);
 
 
@@ -74,13 +76,15 @@ class ProductController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'prov_ranking' => 'required|integer',
-                'prov_imageRanking' => 'required|url',
-                'prov_email' => 'required|email',
-                'prov_group' => 'required|string',
-                'prov_description' => 'required|string',
-                'prov_status' => 'required',
-                'people_peo_id' => 'required'
+                'pro_name' => 'required|string|max:255',
+                'pro_type' => 'required|string|max:255',
+                'pro_price' => 'required',
+                'pro_certs' => 'required|string|max:255',
+                'pro_image' => 'required|image',
+                'pro_unit' => 'required|string|max:255',
+                'pro_status' => 'required',
+                'providers_id' => 'required',
+                'categories_id' => 'required'
             ]);
 
 
