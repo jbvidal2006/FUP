@@ -30,12 +30,13 @@ class PeopleController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'peo_name' => 'required',
-            'peo_lastName' => 'required',
-            'peo_adress' => 'required',
-            'peo_phone' => 'required',
-            'peo_dateBirth' => 'required',
-            'peo_image' => 'required'
+            'peo_name' => 'required|string|max:80',
+            'peo_lastName' => 'required|string|max:80',
+            'peo_adress' => 'required|mail',
+            'peo_phone' => 'required|integer|digits:10',
+            'peo_dateBirth' => 'required|date',
+            'peo_image' => 'required|string',
+            'peo_status' => 'required'
         ];
         $Validator =  Validator($request->input(), $rules);
         if ($Validator->fails()) {
@@ -87,12 +88,13 @@ class PeopleController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'peo_name' => 'required',
-            'peo_lastName' => 'required',
-            'peo_adress' => 'required',
-            'peo_phone' => 'required',
-            'peo_dateBirth' => 'required',
-            'peo_image' => 'required'
+            'peo_name' => 'required|string|max:80',
+            'peo_lastName' => 'required|string|max:80',
+            'peo_adress' => 'required|mail',
+            'peo_phone' => 'required|integer|digits:10',
+            'peo_dateBirth' => 'required|date',
+            'peo_image' => 'required|string',
+            'peo_status' => 'required'
         ];
         $Validator =  Validator($request->input(), $rules);
         if ($Validator->fails()) {
@@ -119,7 +121,8 @@ class PeopleController extends Controller
             'peo_adress',
             'peo_phone',
             'peo_dateBirth',
-            'peo_image'
+            'peo_image',
+            'peo_status'
         ]));
 
 
