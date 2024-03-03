@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\People;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\Validation\ValidationRule;
+
 class PeopleController extends Controller
 {
     /**
@@ -29,29 +32,33 @@ class PeopleController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'peo_name' => 'required|string|max:80',
-            'peo_lastName' => 'required|string|max:80',
-            'peo_adress' => 'required|mail',
-            'peo_phone' => 'required|integer|digits:10',
-            'peo_dateBirth' => 'required|date',
-            'peo_image' => 'required|string',
-            'peo_status' => 'required'
-        ];
-        $Validator =  Validator($request->input(), $rules);
-        if ($Validator->fails()) {
+
+        try {
+            $validatedData = $request->validate([
+                'peo_name' => 'required|string|max:80',
+                'peo_lastName' => 'required|string|max:80',
+                'peo_adress' => 'required',
+                'peo_phone' => 'required|integer|digits:10',
+                'peo_dateBirth' => 'required|date',
+                'peo_image' => 'required|string',
+                'peo_status' => 'required'
+            ]);
+
+
+            $product = new People($validatedData);
+            $product->save();
+
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully people create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $Validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-
-        $people = new People($request->input());
-        $people->save();
-        return response()->json([
-            'status' => true,
-            'message' => "successfully people create"
-        ], 200);
     }
 
     /**
@@ -90,7 +97,7 @@ class PeopleController extends Controller
         $rules = [
             'peo_name' => 'required|string|max:80',
             'peo_lastName' => 'required|string|max:80',
-            'peo_adress' => 'required|mail',
+            'peo_adress' => 'required',
             'peo_phone' => 'required|integer|digits:10',
             'peo_dateBirth' => 'required|date',
             'peo_image' => 'required|string',
