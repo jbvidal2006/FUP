@@ -22,20 +22,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'pro_name' => 'required',
-            'pro_type' => 'required',
-            'pro_amount' => 'required',
-            'pro_price' => 'required',
-            'pro_image' => 'required',
-            'pro_certs' => 'required',
-            'categories_cat_id' => 'required'
-        ];
-        $validator =  Validator($request->input(), $rules);
-        if ($validator->fails()) {
+        try {
+            $validatedData = $request->validate([
+                'prov_ranking' => 'required|integer',
+                'prov_imageRanking' => 'required|url',
+                'prov_email' => 'required|email',
+                'prov_group' => 'required|string',
+                'prov_description' => 'required|string',
+                'prov_status' => 'required',
+                'people_peo_id' => 'required'
+            ]);
+
+
+            $product = new Product($validatedData);
+            $product->save();
+            return response()->json([
+                'status' => true,
+                'message' => "successfully category create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
 
@@ -48,14 +56,6 @@ class ProductController extends Controller
             $request->merge(['pro_image' => $nombreimagen]);
         }
         */
-
-
-        $product = new Product($request->input());
-        $product->save();
-        return response()->json([
-            'status' => true,
-            'message' => "successfully category create"
-        ], 200);
     }
 
     /**
@@ -72,27 +72,30 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $rules = [
-            'pro_name' => 'required',
-            'pro_type' => 'required',
-            'pro_amount' => 'required',
-            'pro_price' => 'required',
-            'pro_image' => 'required', //   |mimes:jpeg,png,jpg,gif,svg|max:2048
-            'pro_certs' => 'required',
-            'categories_cat_id' => 'required'
-        ];
-        $validator =  Validator($request->input(), $rules);
-        if ($validator->fails()) {
+        try {
+            $validatedData = $request->validate([
+                'prov_ranking' => 'required|integer',
+                'prov_imageRanking' => 'required|url',
+                'prov_email' => 'required|email',
+                'prov_group' => 'required|string',
+                'prov_description' => 'required|string',
+                'prov_status' => 'required',
+                'people_peo_id' => 'required'
+            ]);
+
+
+            $product = new Product($validatedData);
+            $product->update();
+            return response()->json([
+                'status' => true,
+                'message' => "successfully category create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-        $product->update($request->input());
-        return response()->json([
-            'status' => true,
-            'message' => "successfully update product"
-        ], 200);
     }
 
     public function destroy(Product $product)
