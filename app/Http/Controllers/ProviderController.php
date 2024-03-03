@@ -9,9 +9,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class ProviderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $provider = Provider::all();
@@ -24,35 +22,41 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'prov_ranking'=> 'required',
-            'prov_imageRanking'=> 'required',
-            'prov_email'=> 'required',
-            'prov_group'=> 'required',
-            'people_peo_id'=> 'required'
-        ];
-        $validator =  Validator($request->input(),$rules);
-        if ($validator->fails()) {
+        try {
+            $validatedData = $request->validate([
+                'prov_ranking' => 'required|integer',
+                'prov_imageRanking' => 'required|url',
+                'prov_email' => 'required|email',
+                'prov_group' => 'required|string',
+                'prov_description' => 'required|string',
+                'prov_status' => 'required',
+                'people_peo_id' => 'required'
+            ]);
+
+
+            $provider = new Provider($validatedData);
+            $provider->save();
+
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully provider create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-
-        $product = new Provider($request->input());
-        $product->save();
-        return response()->json([
-            'status' => true,
-            'message' => "successfully provider create"
-        ], 200);
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Provider $provider)
     {
-        return response()->json(['status'=>true, 'data'=>$provider]);
+        return response()->json(['status' => true, 'data' => $provider]);
     }
 
     /**
@@ -60,26 +64,32 @@ class ProviderController extends Controller
      */
     public function update(Request $request, Provider $provider)
     {
-        $rules = [
-            'prov_ranking'=> 'required',
-            'prov_imageRanking'=> 'required',
-            'prov_email'=> 'required',
-            'prov_group'=> 'required',
-            'people_peo_id'=> 'required'
-        ];
-        $validator =  Validator($request->input(), $rules);
-        if ($validator->fails()) {
+        try {
+            // Validar los datos de entrada
+            $validatedData = $request->validate([
+                'prov_ranking' => 'required|integer',
+                'prov_imageRanking' => 'required|url',
+                'prov_email' => 'required|email',
+                'prov_group' => 'required|string',
+                'prov_description' => 'required|string',
+                'prov_status' => 'required',
+                'people_peo_id' => 'required'
+            ]);
+
+            $provider = new Provider($validatedData);
+            $provider->update();
+
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully update"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()->all()
+                'errors' => $e->errors()
             ], 400);
         }
-
-        $provider->update($request->input());
-        return response()->json([
-            'status' => true,
-            'message' => "successfully provider update"
-        ], 200);
     }
 
     /**
@@ -89,11 +99,8 @@ class ProviderController extends Controller
     {
         $provider->delete();
         return response()->json([
-            'status'=> true,
-            'message'=>"successfully provider delete"
-        ],200);
+            'status' => true,
+            'message' => "successfully provider delete"
+        ], 200);
     }
-
-
-
 }
