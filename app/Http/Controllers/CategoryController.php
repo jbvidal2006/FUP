@@ -66,13 +66,12 @@ class CategoryController extends Controller
 
             ]);
 
-            $Category = new Category($validatedData);
-            $Category->update();
+            $category->update($validatedData);
 
             return response()->json([
                 'status' => true,
-                'message' => "User successfully created",
-                'data' => $Category
+                'message' => "User successfully update",
+                'data' => $category
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
