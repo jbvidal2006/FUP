@@ -12,7 +12,8 @@ class SalesController extends Controller
      */
     public function index()
     {
-        //
+        $sales = Sales::all();
+        return response()->json($sales);
     }
 
     /**
@@ -28,7 +29,27 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            // Validar los datos de entrada
+            $validatedData = $request->validate([
+                'sal_dateSales' => 'required|date',
+                'people_id' => 'required|integer',
+                'products_id' => 'required|integer'
+            ]);
+
+            $provider = new Sales($validatedData);
+            $provider->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully sale create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
     }
 
     /**
@@ -36,7 +57,7 @@ class SalesController extends Controller
      */
     public function show(Sales $sales)
     {
-        //
+        return response()->json(['status'=>true, 'data'=>$sales]);
     }
 
     /**
@@ -52,7 +73,27 @@ class SalesController extends Controller
      */
     public function update(Request $request, Sales $sales)
     {
-        //
+        try {
+            // Validar los datos de entrada
+            $validatedData = $request->validate([
+                'sal_dateSales' => 'required|date',
+                'people_id' => 'required|integer',
+                'products_id' => 'required|integer'
+            ]);
+
+            $provider = new Sales($validatedData);
+            $provider->update();
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully sale update"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
     }
 
     /**
@@ -60,6 +101,10 @@ class SalesController extends Controller
      */
     public function destroy(Sales $sales)
     {
-        //
+        $sales->delete();
+        return response()->json([
+            'status'=> true,
+            'message'=>"successfully sale delete"
+        ],200);
     }
 }
