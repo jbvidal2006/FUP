@@ -25,7 +25,6 @@ class ProviderController extends Controller
         try {
             $validatedData = $request->validate([
                 'prov_ranking' => 'required|integer',
-                'prov_imageRanking' => 'required',
                 'prov_email' => 'required',
                 'prov_group' => 'required|string',
                 'prov_description' => 'required|string',
@@ -67,7 +66,6 @@ class ProviderController extends Controller
         try {
             $validatedData = $request->validate([
                 'prov_ranking' => 'required|integer',
-                'prov_imageRanking' => 'required',
                 'prov_email' => 'required',
                 'prov_group' => 'required|string',
                 'prov_description' => 'required|string',

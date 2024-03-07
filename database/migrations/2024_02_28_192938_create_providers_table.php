@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
             $table->integer('prov_ranking');
-            $table->text('prov_imageRanking');
             $table->string('prov_email', 40);
             $table->string('prov_group', 100);
             $table->text('prov_description');
