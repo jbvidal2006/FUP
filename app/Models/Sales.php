@@ -11,7 +11,6 @@ class Sales extends Model
 
     protected $fillable =[
         'sal_dataSales',
-        'sal_status',
         'people_id',
         'products_id'
     ];

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->date('sal_dateSales');
-            $table->boolean('sal_status');
             $table->foreignId('people_id')->references('id')->on('people');
             $table->foreignId('products_id')->references('id')->on('products');
             $table->timestamps();
