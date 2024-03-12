@@ -12,10 +12,7 @@ class People extends Model
         'peo_name',
         'peo_lastName',
         'peo_adress',
-        'peo_phone',
         'peo_dateBirth',
         'peo_image',
-        'peo_status'
-
     ];
 }

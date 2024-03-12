@@ -38,10 +38,8 @@ class PeopleController extends Controller
                 'peo_name' => 'required|string|max:80',
                 'peo_lastName' => 'required|string|max:80',
                 'peo_adress' => 'required',
-                'peo_phone' => 'required|integer|digits:10',
                 'peo_dateBirth' => 'required|date',
-                'peo_image' => 'required|string',
-                'peo_status' => 'required'
+                'peo_image' => 'required|string'
             ]);
 
 
@@ -100,10 +98,8 @@ class PeopleController extends Controller
                 'peo_name' => 'required|string|max:80',
                 'peo_lastName' => 'required|string|max:80',
                 'peo_adress' => 'required',
-                'peo_phone' => 'required|integer|digits:10',
                 'peo_dateBirth' => 'required|date',
-                'peo_image' => 'required|string',
-                'peo_status' => 'required'
+                'peo_image' => 'required|string'
             ]);
 
 

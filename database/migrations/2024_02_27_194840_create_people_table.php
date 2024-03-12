@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('peo_name',80);
             $table->string('peo_lastname',80);
             $table->string('peo_adress',100);
-            $table->string('peo_phone');
             $table->date('peo_dateBirth');
             $table->text('peo_image');
-            $table->boolean('peo_status');
             $table->timestamps();
         });
     }
