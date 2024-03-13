@@ -21,24 +21,21 @@ use App\Http\Controllers\EnlacesController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-/*
+
 Route::post('auth/register', [AuthController::class, 'create']);
 Route::post('auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    Route::resource('people', PeopleController::class);
+    Route::resource('sales', SalesController::class);
+    Route::resource('requeste',RequestsAppController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
+    Route::resource('provider', ProviderController::class);
+    Route::get('auth/logout', [AuthController::class, 'logout']);
 });
 
-*/
 
-
-Route::resource('people', PeopleController::class);
-Route::resource('sales', SalesController::class);
-Route::resource('requeste',RequestsAppController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('product', ProductController::class);
-Route::resource('provider', ProviderController::class);
-Route::get('auth/logout', [AuthController::class, 'logout']);
 
 /*rutas adicionales-- para traer personas y provedores
 Route::get('/providerWithPeople', [EnlacesController::class, 'getPeopleProvider']);
