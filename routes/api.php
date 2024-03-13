@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\EnlacesController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,7 @@ use App\Http\Controllers\EnlacesController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::post('auth/register', [AuthController::class, 'create']);
+Route::resource('user', UserController::class);
 Route::post('auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
