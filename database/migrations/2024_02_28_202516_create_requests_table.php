@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('request_apps', function (Blueprint $table) {
             $table->id();
             $table->date('req_dateRequest');
             $table->string('rep_type',80);

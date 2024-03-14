@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RequestApp extends Model
 {
     use HasFactory;
+
     protected $fillable =[
         'req_dateRequest',
         'rep_type',

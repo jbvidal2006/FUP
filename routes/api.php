@@ -28,7 +28,7 @@ Route::post('auth/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('people', PeopleController::class);
     Route::resource('sales', SalesController::class);
-    Route::resource('requeste',RequestsAppController::class);
+    Route::resource('requestApp',RequestsAppController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
     Route::resource('provider', ProviderController::class);
