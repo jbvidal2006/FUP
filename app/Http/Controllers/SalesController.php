@@ -57,7 +57,7 @@ class SalesController extends Controller
      */
     public function show(Sales $sales)
     {
-        return response()->json(['status'=>true, 'data'=>$sales]);
+        return response()->json(['status' => true, 'data' => $sales]);
     }
 
     /**
@@ -68,33 +68,28 @@ class SalesController extends Controller
         //
     }
 
-    public function update(Request $request, Sales $sales)
+    public function update(Request $request, $id)
     {
-        try {
-            $validatedData = $request->validate([
-                'sal_dateSales' => 'required|date',
-                'people_id' => 'required|integer',
-                'products_id' => 'required|integer'
-            ]);
+        $sales = Sales::find($id);
 
-            $sales = new Sales($validatedData);
-            $sales->update();
-
-            return response()->json([
-                'status' => true,
-                'message' => "successfully sale update"
-            ], 200);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        if (!$sales) {
             return response()->json([
                 'status' => false,
-                'message' => "Sale does not exist"
+                'message' => 'Sale not found'
             ], 404);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'status' => false,
-                'errors' => $e->errors()
-            ], 400);
         }
+
+        $validatedData = $request->validate([
+            'sal_dateSales' => 'required|date',
+            'people_id' => 'required|integer',
+            'products_id' => 'required|integer'
+        ]);
+
+        $sales->update($validatedData);
+        return response()->json([
+            'status' => true,
+            'message' => "successfully sale create"
+        ], 200);
     }
 
     public function destroy($id)
