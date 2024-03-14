@@ -66,7 +66,7 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'use_phone' => 'required|unique:users',
+                'use_phone' => 'sometimes|required|unique:users,use_phone,' . $id,
                 'use_password' => 'sometimes|required',
                 'use_rol' => 'required',
                 'use_status' => 'required',
@@ -75,15 +75,21 @@ class UserController extends Controller
 
             $user = User::findOrFail($id);
 
-            // Actualiza el teléfono y otros campos
+
             $user->update([
-                'use_phone' => $request->use_phone,
                 'use_rol' => $request->use_rol,
                 'use_status' => $request->use_status,
                 'people_id' => $request->people_id,
             ]);
 
-            // Actualiza la contraseña si se proporciona
+            // Actualiza el teléfono si se proporciona y es diferente del actual
+            if ($request->has('use_phone') && $user->use_phone != $request->use_phone) {
+                $user->update([
+                    'use_phone' => $request->use_phone,
+                ]);
+            }
+
+            // Actualiza si se proporciona
             if ($request->has('use_password')) {
                 $user->update([
                     'use_password' => Hash::make($request->use_password),
@@ -106,6 +112,7 @@ class UserController extends Controller
             ], 404);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
