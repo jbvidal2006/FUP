@@ -68,26 +68,27 @@ class SalesController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Sales $sales)
     {
         try {
-            // Validar los datos de entrada
             $validatedData = $request->validate([
                 'sal_dateSales' => 'required|date',
                 'people_id' => 'required|integer',
                 'products_id' => 'required|integer'
             ]);
 
-
-            $sales->update($validatedData);
+            $sales = new Sales($validatedData);
+            $sales->update();
 
             return response()->json([
                 'status' => true,
                 'message' => "successfully sale update"
             ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "Sale does not exist"
+            ], 404);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'status' => false,
@@ -96,15 +97,14 @@ class SalesController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Sales $sales)
+    public function destroy($id)
     {
+
+        $sales = Sales::where('id', $id)->first();
         $sales->delete();
         return response()->json([
-            'status'=> true,
-            'message'=>"successfully sale delete"
-        ],200);
+            'status' => true,
+            'message' => "successfully sales delete"
+        ], 200);
     }
 }
