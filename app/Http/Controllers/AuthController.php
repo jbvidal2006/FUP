@@ -19,25 +19,27 @@ class AuthController extends Controller
             'use_password' => 'required'
         ]);
 
-         // Busca al usuario por 'use_phone'
-         $user = User::where('use_phone', $request->use_phone)->first();
+        // Busca al usuario por 'use_phone'
+        $user = User::where('use_phone', $request->use_phone)->first();
 
-         // Asegúrate de que el usuario exista antes de intentar crear un token
-         if (!$user) {
-             return response()->json([
-                 'status' => false,
-                 'errors' => ['User not found']
-             ], 404);
-         }
+        // Asegúrate de que el usuario exista antes de intentar crear un token
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'errors' => ['User not found']
+            ], 404);
+        }
 
 
         // Intenta autenticar al usuario con el teléfono y la contraseña
-        if (!Auth::attempt($request->only('use_phone', 'use_password'))) {
+        if (!Auth::attempt(['use_phone' => $request->use_phone, 'password' => $request->use_password])) {
             return response()->json([
                 'status' => false,
                 'errors' => ['password incorrect']
             ], 401);
         }
+
+
 
 
         // Genera y devuelve el token
@@ -51,13 +53,20 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $tokens = auth()->user()->tokens;
-        foreach ($tokens as $token) {
-            $token->delete();
+        try {
+            $tokens = auth()->user()->tokens;
+            foreach ($tokens as $token) {
+                $token->delete();
+            }
+            return response()->json([
+                'status' => true,
+                'message' => 'user logout'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error al cerrar sesión: ' . $e->getMessage()
+            ], 500);
         }
-        return response()->json([
-            'status' => true,
-            'message' => 'user logout'
-        ], 200);
     }
 }
