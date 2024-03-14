@@ -88,7 +88,7 @@ class SalesController extends Controller
         $sales->update($validatedData);
         return response()->json([
             'status' => true,
-            'message' => "successfully sale update"
+            'message' => "successfully sale create"
         ], 200);
     }
 
