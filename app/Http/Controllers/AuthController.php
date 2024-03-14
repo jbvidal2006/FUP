@@ -10,62 +10,42 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function create(Request $request)
-    {
-        $rules = [
-            'name' => 'required|string',
-            'phone' => 'required|unique:users',
-            'password' => 'required|'
-        ];
-        $Validator = Validator($request->input(), $rules);
-
-        if ($Validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'errors' => $Validator->errors()->all()
-            ], 400);
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password)
-        ]);
-        return response()->json([
-            'status' => true,
-            'errors' => 'user created successfully',
-            'token' => $user->createToken('API TOKEN')->plainTextToken
-        ], 200);
-    }
 
     public function login(Request $request)
     {
-        $rules = [
-            'phone' => 'required',
-            'password' => 'required|'
-        ];
+        // Ajusta las reglas de validación para el inicio de sesión
+        $validatedData = $request->validate([
+            'use_phone' => 'required',
+            'use_password' => 'required'
+        ]);
 
-        $Validator = Validator($request->input(), $rules);
+         // Busca al usuario por 'use_phone'
+         $user = User::where('use_phone', $request->use_phone)->first();
 
-        if ($Validator->fails()) {
+         // Asegúrate de que el usuario exista antes de intentar crear un token
+         if (!$user) {
+             return response()->json([
+                 'status' => false,
+                 'errors' => ['User not found']
+             ], 404);
+         }
+
+
+        // Intenta autenticar al usuario con el teléfono y la contraseña
+        if (!Auth::attempt($request->only('use_phone', 'use_password'))) {
             return response()->json([
                 'status' => false,
-                'errors' => $Validator->errors()->all()
-            ], 400);
-        }
-        if (!Auth::attempt($request->only('phone', 'password'))) {
-            return response()->json([
-                'status' => false,
-                'errors' => ['Unauthorized']
+                'errors' => ['password incorrect']
             ], 401);
         }
-        $user = User::where('phone', $request->phone)->first();
+
+
+        // Genera y devuelve el token
         return response()->json([
             'status' => true,
-            'errors' => 'user login successfully',
-            'data'=> $user,
+            'message' => 'User login successfully',
+            'data' => $user,
             'token' => $user->createToken('API TOKEN')->plainTextToken
-
         ], 200);
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,7 +18,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'use_phone',
-        'use_phone_verified_at',
         'use_password',
         'use_rol',
         'use_status',
@@ -44,6 +42,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'use_phone_verified_at' => 'datetime',
-        'use_password' => 'hashed',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->use_password;
+    }
 }
