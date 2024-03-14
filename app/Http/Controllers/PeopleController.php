@@ -93,31 +93,34 @@ class PeopleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $validatedData = $request->validate([
-                'peo_name' => 'required|string|max:80',
-                'peo_lastName' => 'required|string|max:80',
-                'peo_adress' => 'required',
-                'peo_dateBirth' => 'required|date',
-                'peo_image' => 'required|string'
-            ]);
 
 
-            $people = new People($validatedData);
-            $people->update();
+        $people = People::find($id);
 
-
-            return response()->json([
-                'status' => true,
-                'message' => "successfully people create",
-                'data' => $people
-            ], 201);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        if (!$people) {
             return response()->json([
                 'status' => false,
-                'errors' => $e->errors()
-            ], 400);
+                'message' => 'Person not found'
+            ],  404);
         }
+
+
+        $validatedData = $request->validate([
+            'peo_name' => 'required|string|max:80',
+            'peo_lastName' => 'required|string|max:80',
+            'peo_adress' => 'required',
+            'peo_dateBirth' => 'required|date',
+            'peo_image' => 'required|string'
+        ]);
+
+
+
+        $people->update($validatedData);
+
+        return response()->json([
+            'status' => True,
+            'message' => 'people update successfully'
+        ],  200);
     }
 
     /**
