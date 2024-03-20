@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Validation\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -26,7 +24,7 @@ class AuthController extends Controller
         if (!$user) {
             return response()->json([
                 'status' => false,
-                'errors' => ['User not found']
+                'errors' => ['Validation Error']
             ], 404);
         }
 
@@ -35,12 +33,9 @@ class AuthController extends Controller
         if (!Auth::attempt(['use_phone' => $request->use_phone, 'password' => $request->use_password])) {
             return response()->json([
                 'status' => false,
-                'errors' => ['password incorrect']
+                'errors' => ['Validation Error']
             ], 401);
         }
-
-
-
 
         // Genera y devuelve el token
         return response()->json([
