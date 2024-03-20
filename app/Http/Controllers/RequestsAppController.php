@@ -12,8 +12,8 @@ class RequestsAppController extends Controller
      */
     public function index()
     {
-        $requestApp = RequestApp::all();
-        return response()->json($requestApp);
+       $requestApp = RequestApp::where('req_status', 1)->get();
+       return response()->json($requestApp);
     }
 
     /**
@@ -102,10 +102,12 @@ class RequestsAppController extends Controller
      */
     public function destroy(RequestApp $requestApp)
     {
-        $requestApp->delete();
+        $requestApp->update(['req_status' => 0]);
+
         return response()->json([
-            'status'=> true,
-            'message'=>"successfully request delete"
-        ],200);
+            'status' => true,
+            'message' => "successfully request 'delete' "
+        ], 200);
     }
+
 }
