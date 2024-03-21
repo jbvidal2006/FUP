@@ -21,10 +21,10 @@ class AuthController extends Controller
         $user = User::where('use_phone', $request->use_phone)->first();
 
         // Asegúrate de que el usuario exista antes de intentar crear un token
-        if (!$user) {
+        if (!$user  || $user->use_status == 0) {
             return response()->json([
                 'status' => false,
-                'errors' => ['Validation Error']
+                'errors' => ['usuario no existe o cuenta inhabilitada']
             ], 404);
         }
 
