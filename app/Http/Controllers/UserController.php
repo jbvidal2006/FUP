@@ -13,12 +13,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
         $users = User::where('use_status', 1)->get();
         return response()->json($users);
     }
 
-
+    public function showUserInactive(){
+        $users = User::where('use_status', 0)->get();
+        return response()->json($users);
+    }
 
     public function store(Request $request)
     {

@@ -22,6 +22,7 @@ use App\Http\Controllers\UserController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('user/inactive',[UserController::class,'showUserInactive']);
 Route::resource('user', UserController::class);
 Route::post('auth/login', [AuthController::class, 'login']);
 
