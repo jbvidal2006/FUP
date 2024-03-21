@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
+        $product = product::where('pro_status', 1)->get();
         return response()->json($product);
     }
 
@@ -104,11 +104,11 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $product->delete();
+        $product->update(['req_status' => 0]);
 
         return response()->json([
             'status' => true,
-            'message' => "successfully delete product"
+            'message' => "successfully product 'delete' "
         ], 200);
     }
 }
