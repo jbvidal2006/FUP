@@ -23,7 +23,7 @@ use App\Http\Controllers\UserController;
 |
 */
 Route::resource('user', UserController::class);
-Route::post('auth/login', [AuthController::class, 'login'])->middleware('checkUserStatus');
+Route::post('auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('people', PeopleController::class);
