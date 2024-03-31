@@ -12,7 +12,7 @@ class ProviderController extends Controller
 
     public function index()
     {
-        $provider = provider::where('pro_status', 1)->get();
+        $provider = provider::where('prov_status', 1)->get();
         return response()->json($provider);
     }
 
@@ -94,7 +94,7 @@ class ProviderController extends Controller
      */
     public function destroy(Provider $provider)
     {
-        $provider->update(['req_status' => 0]);
+        $provider->update(['prov_status' => 0]);
 
         return response()->json([
             'status' => true,
