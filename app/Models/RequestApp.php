@@ -11,7 +11,7 @@ class RequestApp extends Model
 
     protected $fillable =[
         'req_dateRequest',
-        'rep_type',
+        'req_type',
         'req_description',
         'req_status',
         'people_id',
