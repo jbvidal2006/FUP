@@ -15,6 +15,7 @@ class Product extends Model
         'pro_certs',
         'pro_image',
         'pro_unit',
+        'pro_description',
         'pro_status',
         'providers_id',
         'categories_id'
