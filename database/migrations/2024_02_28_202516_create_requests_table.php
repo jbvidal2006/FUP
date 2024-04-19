@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('request_apps', function (Blueprint $table) {
             $table->id();
             $table->date('req_dateRequest');
-            $table->string('rep_type',80);
+            $table->string('req_type',80);
             $table->text('req_description')->nullable();
             $table->boolean('req_status');
             $table->foreignId('people_id')->references('id')->on('people');

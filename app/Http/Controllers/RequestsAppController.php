@@ -33,7 +33,7 @@ class RequestsAppController extends Controller
             // Validar los datos de entrada
             $validatedData = $request->validate([
                 'req_dateRequest' => 'required|date',
-                'rep_type' => 'required|string|max:80',
+                'req_type' => 'required|string|max:80',
                 'req_description' => 'required',
                 'req_status' => 'required',
                 'people_id' => 'required|integer'
@@ -79,7 +79,7 @@ class RequestsAppController extends Controller
             // Validar los datos de entrada
             $validatedData = $request->validate([
                 'req_dateRequest' => 'required|date',
-                'rep_type' => 'required|string|max:80',
+                'req_type' => 'required|string|max:80',
                 'req_description' => 'required',
                 'req_status' => 'required',
                 'people_id' => 'required|integer'
