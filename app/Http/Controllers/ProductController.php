@@ -106,7 +106,7 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $product->update(['req_status' => 0]);
+        $product->update(['pro_status' => 0]);
 
         return response()->json([
             'status' => true,

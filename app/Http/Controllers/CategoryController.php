@@ -25,7 +25,9 @@ class CategoryController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'cat_name' => 'required|string|max:255'
+                'cat_name' => 'required|string|max:255',
+                'cat_description' => 'string',
+                'cat_image' => 'required'
 
             ]);
 
@@ -61,7 +63,7 @@ class CategoryController extends Controller
         try {
             $validatedData = $request->validate([
                 'cat_name' => 'required|string|max:255',
-                'cat_description' => 'required',
+                'cat_description' => 'string',
                 'cat_image' => 'required'
             ]);
 
