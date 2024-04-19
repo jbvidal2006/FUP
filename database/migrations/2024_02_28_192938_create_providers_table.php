@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
             $table->integer('prov_ranking');
-            $table->string('prov_email', 40);
-            $table->string('prov_group', 100);
+            $table->text('prov_group');
             $table->text('prov_description');
             $table->boolean('prov_status');
             $table->foreignId('people_peo_id')->references('id')->on('people');

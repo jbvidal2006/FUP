@@ -13,12 +13,12 @@ class AuthController extends Controller
     {
         // Ajusta las reglas de validación para el inicio de sesión
         $validatedData = $request->validate([
-            'use_phone' => 'required',
+            'use_cc' => 'required',
             'use_password' => 'required'
         ]);
 
-        // Busca al usuario por 'use_phone'
-        $user = User::where('use_phone', $request->use_phone)->first();
+        // Busca al usuario por 'use_cc'
+        $user = User::where('use_cc', $request->use_cc)->first();
 
         // Asegúrate de que el usuario exista antes de intentar crear un token
         if (!$user  || $user->use_status == 0) {
@@ -30,7 +30,7 @@ class AuthController extends Controller
 
 
         // Intenta autenticar al usuario con el teléfono y la contraseña
-        if (!Auth::attempt(['use_phone' => $request->use_phone, 'password' => $request->use_password])) {
+        if (!Auth::attempt(['use_cc' => $request->use_cc, 'password' => $request->use_password])) {
             return response()->json([
                 'status' => false,
                 'errors' => ['Validation Error']

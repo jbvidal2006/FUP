@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'use_phone',
+        'use_cc',
         'use_password',
         'use_rol',
         'use_status',
@@ -41,7 +41,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'use_phone_verified_at' => 'datetime',
+        'use_cc_verified_at' => 'datetime',
     ];
 
     public function getAuthPassword()

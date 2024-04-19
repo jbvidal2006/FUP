@@ -39,7 +39,9 @@ class PeopleController extends Controller
                 'peo_lastName' => 'required|string|max:80',
                 'peo_adress' => 'required',
                 'peo_dateBirth' => 'required|date',
-                'peo_image' => 'required|string'
+                'peo_image' => 'required|string',
+                'peo_mail' => 'required|string',
+                'peo_phone' => 'required|string'
             ]);
 
 

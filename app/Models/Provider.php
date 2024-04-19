@@ -12,7 +12,6 @@ class Provider extends Model
 
     protected $fillable =[
         'prov_ranking',
-        'prov_email',
         'prov_group',
         'prov_description',
         'prov_status',
