@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('peo_adress',100);
             $table->date('peo_dateBirth');
             $table->text('peo_image');
+            $table->string('peo_mail');
+            $table->string('peo_phone');
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'use_phone' => 'required|unique:users',
+                'use_cc' => 'required|unique:users',
                 'use_password' => 'required',
                 'use_rol' => 'required',
                 'use_status' => 'required',
@@ -34,7 +34,7 @@ class UserController extends Controller
             ]);
 
             $user = User::create([
-                'use_phone' => $request->use_phone,
+                'use_cc' => $request->use_cc,
                 'use_password' => Hash::make($request->use_password),
                 'use_rol' => $request->use_rol,
                 'use_status' => $request->use_status,
@@ -69,7 +69,7 @@ class UserController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'use_phone' => 'sometimes|required|unique:users,use_phone,' . $id,
+                'use_cc' => 'sometimes|required|unique:users,use_cc,' . $id,
                 'use_password' => 'sometimes|required',
                 'use_rol' => 'required',
                 'use_status' => 'required',
@@ -86,9 +86,9 @@ class UserController extends Controller
             ]);
 
             // Actualiza el teléfono si se proporciona y es diferente del actual
-            if ($request->has('use_phone') && $user->use_phone != $request->use_phone) {
+            if ($request->has('use_cc') && $user->use_cc != $request->use_cc) {
                 $user->update([
-                    'use_phone' => $request->use_phone,
+                    'use_cc' => $request->use_cc,
                 ]);
             }
 

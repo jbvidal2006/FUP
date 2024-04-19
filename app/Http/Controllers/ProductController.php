@@ -30,6 +30,7 @@ class ProductController extends Controller
                 'pro_certs' => 'required|string|max:255',
                 'pro_image' => 'required',
                 'pro_unit' => 'required|string|max:255',
+                'pro_description' =>'required',
                 'pro_status' => 'required',
                 'providers_id' => 'required',
                 'categories_id' => 'required'
@@ -82,6 +83,7 @@ class ProductController extends Controller
                 'pro_certs' => 'required|string|max:255',
                 'pro_image' => 'required',
                 'pro_unit' => 'required|string|max:255',
+                'pro_description' =>'required',
                 'pro_status' => 'required',
                 'providers_id' => 'required',
                 'categories_id' => 'required'
