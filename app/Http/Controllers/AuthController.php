@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (!$user  || $user->use_status == 0) {
             return response()->json([
                 'status' => false,
-                'errors' => ['usuario no existe o cuenta inhabilitada']
+                'message' => 'usuario no existe o cuenta inhabilitada'
             ], 404);
         }
 
@@ -33,7 +33,7 @@ class AuthController extends Controller
         if (!Auth::attempt(['use_cc' => $request->use_cc, 'password' => $request->use_password])) {
             return response()->json([
                 'status' => false,
-                'errors' => ['Validation Error']
+                'message' => 'Validation Error'
             ], 401);
         }
 

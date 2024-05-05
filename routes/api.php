@@ -25,9 +25,10 @@ use App\Http\Controllers\UserController;
 Route::get('user/inactive',[UserController::class,'showUserInactive']);
 Route::resource('user', UserController::class);
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::resource('people', PeopleController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('people', PeopleController::class);
+
     Route::resource('sales', SalesController::class);
     Route::resource('requestApp',RequestsAppController::class);
     Route::resource('category', CategoryController::class);
