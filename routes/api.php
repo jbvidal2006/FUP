@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RequestsAppController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EnlacesController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
@@ -48,7 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-/*rutas adicionales-- para traer personas y provedores
-Route::get('/providerWithPeople', [EnlacesController::class, 'getPeopleProvider']);
-*/
+// ruta adicional
+Route::get('/usuariosPersonas', [EnlacesController::class, 'todoDatosPorIDUser']);
+
 

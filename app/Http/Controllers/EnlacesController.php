@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\People;
 use Illuminate\Http\Request;
 use App\Models\Provider;
 
@@ -9,20 +10,25 @@ class EnlacesController extends Controller
 {
     //metodos extra
 
-    public function getPeopleProvider()
+    public function todoDatosPorIDUser()
     {
         // Realiza un inner join entre las tablas Provider y People
-        $providers = Provider::join('people', 'providers.people_peo_id', '=', 'people.id')
+        $join = People::join('users', 'people.id', '=', 'users.people_id')
+            ->join('providers', 'people.id', '=', 'providers.people_peo_id')
+
             ->select([
-                'providers.people_peo_id',
-                'providers.prov_ranking',
-                'people.peo_name',
-                'peo_image',
-                'peo_adress'
+                '*',
+                'users.id as user_id',
+                'providers.id as provider_id'
+
             ])
             ->get();
 
-        return response()->json($providers);
-    }
+        $data = [
+            'status' => true,
+            'data' => $join
+        ];
 
+        return response()->json($data);
+    }
 }
