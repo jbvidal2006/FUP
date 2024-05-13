@@ -51,5 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // ruta adicional
 Route::get('/usuariosPersonas', [EnlacesController::class, 'todoDatosPorIDUser']);
+Route::get('/productosProvedoresPernas', [EnlacesController::class, 'productosProvedoresPernas']);
+
 
 

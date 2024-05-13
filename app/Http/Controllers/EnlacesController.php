@@ -13,12 +13,11 @@ class EnlacesController extends Controller
     public function todoDatosPorIDUser()
     {
         // Realiza un inner join entre las tablas Provider y People
-        $join = People::join('users', 'people.id', '=', 'users.people_id')
-            ->join('providers', 'people.id', '=', 'providers.people_peo_id')
+        $join = People::join('providers', 'people.id', '=', 'providers.people_peo_id')
 
             ->select([
                 '*',
-                'users.id as user_id',
+                'people.id as people_id',
                 'providers.id as provider_id'
 
             ])
@@ -30,5 +29,28 @@ class EnlacesController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+
+    public function productosProvedoresPernas(){
+          // Realiza un inner join entre las tablas Provider y People
+          $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
+          ->join('people', 'people.id', '=', 'providers.people_peo_id')
+
+          ->select([
+              '*',
+              'people.id as people_id',
+              'providers.id as provider_id',
+              'products.id as product_id'
+
+          ])
+          ->get();
+
+      $data = [
+          'status' => true,
+          'data' => $join
+      ];
+
+      return response()->json($data);
     }
 }
