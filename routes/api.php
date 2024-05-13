@@ -9,8 +9,16 @@ use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\SalesController;
-use App\Http\Controllers\EnlacesController;
 use App\Http\Controllers\UserController;
+
+
+
+//para subir imagenes
+use App\Http\Controllers\FileUploadController;
+
+//ruta para GUARDAR imagenes en local
+Route::post('imagen', [FileUploadController::class, 'upload']);
+Route::get('imagen/{urlimage}', [FileUploadController::class, 'imagenID']);
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +34,7 @@ Route::get('user/inactive',[UserController::class,'showUserInactive']);
 Route::resource('user', UserController::class);
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::resource('people', PeopleController::class);
+
 
 Route::middleware('auth:sanctum')->group(function () {
 

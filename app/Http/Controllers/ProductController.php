@@ -24,12 +24,12 @@ class ProductController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'pro_name' => 'required|string|max:255',
-                'pro_type' => 'required|string|max:255',
+                'pro_name' => 'required',
+                'pro_type' => 'required',
                 'pro_price' => 'required',
-                'pro_certs' => 'required|string|max:255',
+                'pro_certs' => 'required',
                 'pro_image' => 'required',
-                'pro_unit' => 'required|string|max:255',
+                'pro_unit' => 'required',
                 'pro_description' =>'required',
                 'pro_status' => 'required',
                 'providers_id' => 'required',
@@ -50,15 +50,7 @@ class ProductController extends Controller
             ], 400);
         }
 
-        /* Tratamiento de la imagen
-        if ($request->hasFile("pro_image")) {
-            $imagen = $request->file('pro_image');
-            $nombreimagen = $imagen->getClientOriginalName();
-            $ruta = public_path("/img/productos/");
-            $imagen->move($ruta, $nombreimagen);
-            $request->merge(['pro_image' => $nombreimagen]);
-        }
-        */
+
     }
 
     /**
@@ -77,12 +69,12 @@ class ProductController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'pro_name' => 'required|string|max:255',
-                'pro_type' => 'required|string|max:255',
+                'pro_name' => 'required',
+                'pro_type' => 'required',
                 'pro_price' => 'required',
-                'pro_certs' => 'required|string|max:255',
+                'pro_certs' => 'required',
                 'pro_image' => 'required',
-                'pro_unit' => 'required|string|max:255',
+                'pro_unit' => 'required',
                 'pro_description' =>'required',
                 'pro_status' => 'required',
                 'providers_id' => 'required',
