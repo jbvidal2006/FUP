@@ -32,6 +32,28 @@ class EnlacesController extends Controller
         return response()->json($data);
     }
 
+        //po
+    public function joinProvedorpeopleID($id)
+    {
+        // Realiza un inner join entre las tablas Provider y People
+        $join = People::join('providers', 'people.id', '=', 'providers.people_peo_id')
+            ->where('people.id', '=', $id )
+            ->select([
+                '*',
+                'people.id as people_id',
+                'providers.id as provider_id'
+            ])
+            ->get();
+
+        $data = [
+            'status' => true,
+            'data' => $join
+        ];
+
+        return response()->json($data);
+    }
+
+
     public function joinUserPeople($id)
     {
         // Realiza un inner join entre las tablas Provider y People
