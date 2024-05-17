@@ -50,8 +50,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 // ruta adicional
-Route::get('/usuariosPersonas', [EnlacesController::class, 'todoDatosPorIDUser']);
-Route::get('/productosProvedoresPernas', [EnlacesController::class, 'productosProvedoresPernas']);
+Route::get('/usuariosPersonas', [EnlacesController::class, 'joinProvPeo']);
+Route::get('/productosProvedoresPernas', [EnlacesController::class, 'joinProdProvPers']);
+Route::get('/joinProdProvPeopleID/{id}', [EnlacesController::class, 'joinProdProvPeopleID']);
+Route::get('/joinReqPeoUsu/{id}', [EnlacesController::class, 'joinReqPeoUsu']);
+Route::get('joinUserPeople/{id}',[EnlacesController::class, 'joinUserPeople']);
+
+
 
 
 

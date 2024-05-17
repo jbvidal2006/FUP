@@ -13,28 +13,14 @@ class FileUploadController extends Controller
             'file' => 'required|file',
         ]);
 
-        // Almacena el archivo en el directorio 'image' dentro del disco 'public'
         $path = $request->file('file')->store('image', 'public');
-
-        // Construye la URL absoluta del archivo
-        // Asume que tu aplicación está servida desde la raíz ('/') y que los archivos estáticos están en 'public'
-        $url = url($path);
-
+        $url = url('/api/imagen/' . basename($path));
         return response()->json(['data' => $url]);
     }
 
     public function imagenID($urlImage)
     {
-        $absoluteUrl = Storage::url($urlImage);
 
-        // Obtiene el nombre del archivo
-        $absoluteUrl = basename($absoluteUrl);
-
-        // Devuelve la URL absoluta y el nombre del archivo en la respuesta JSON
-        return response()->json([
-            'linkImage' => $absoluteUrl
-        ]);
+        return response()->file(storage_path("app/public/image/$urlImage"));
     }
 }
-
-
