@@ -17,12 +17,16 @@ class PeopleFactory extends Factory
     public function definition(): array
     {
         return [
-            "peo_name" => $this->faker->firstName,
-            "peo_lastName" => $this->faker->lastName,
-            "peo_adress" => $this->faker->streetAddress,
-            "peo_phone" => $this->faker->phoneNumber,
-            "peo_dateBirth" => $this->faker->date,
+            "peo_name" => 'Fundación Universitaria de Popayán',
+            "peo_lastName" => 'FUP',
+            "peo_adress" => 'Calle 5 No. 8 - 58, Popayán, Cauca',
+            "peo_dateBirth" => '01/01/1999',
             "peo_image" => $this->faker->image,
+            "peo_mail" => 'fup@fup.edu.co',
+            "peo_phone" => '3145568894',
+
         ];
     }
 }
+
+

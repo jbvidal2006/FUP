@@ -20,12 +20,16 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            '999' => fake()->unique()->phoneNumber(),
-            'phone_verified_at' => now(),
-            'password' => static::$password ??= Hash::make(1971),
-            'remember_token' => Str::random(10),
-        ];
+
+            return [
+                'use_cc' => 9999,
+                'use_password' => static::$password ??= Hash::make('1993fup'),
+                'use_rol' => 'admin',
+                'use_status' => 1,
+                'people_id' => 1,
+            ];
+
+
     }
 
     /**
