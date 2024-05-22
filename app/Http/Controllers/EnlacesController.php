@@ -131,7 +131,37 @@ class EnlacesController extends Controller
             ->join('request_apps', 'people.id', '=', 'request_apps.people_id')
             ->where('users.id', '=', $id)
             ->select([
-                'request_apps.rep_type' ,
+                'request_apps.req_type' ,
+                'people.peo_phone',
+                'people.peo_name',
+                'people.peo_lastname',
+                'people.peo_adress',
+                'users.use_rol',
+                'request_apps.req_status',
+                'people.id as people_id',
+                'request_apps.id as provider_id',
+                'users.id as users_id'
+
+            ])
+            ->get();
+
+            $data = [
+                'status' => true,
+                'data' => $join
+            ];
+
+            return response()->json($data);
+    }
+
+        //mostrar info reques people users
+    public function showReqPeoUsu()
+    {
+
+        $join = User::join('people', 'users.people_id', '=', 'people.id')
+            ->join('request_apps', 'people.id', '=', 'request_apps.people_id')
+            ->select([
+                'request_apps.req_type' ,
+                'request_apps.req_dateRequest',
                 'people.peo_phone',
                 'people.peo_name',
                 'people.peo_lastname',
