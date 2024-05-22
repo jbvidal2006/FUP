@@ -132,6 +132,7 @@ class EnlacesController extends Controller
             ->where('users.id', '=', $id)
             ->select([
                 'request_apps.req_type' ,
+                'request_apps.req_description',
                 'people.peo_phone',
                 'people.peo_name',
                 'people.peo_lastname',
@@ -162,6 +163,7 @@ class EnlacesController extends Controller
             ->select([
                 'request_apps.req_type' ,
                 'request_apps.req_dateRequest',
+                'request_apps.req_description',
                 'people.peo_phone',
                 'people.peo_name',
                 'people.peo_lastname',
