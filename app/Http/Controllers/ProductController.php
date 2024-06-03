@@ -30,6 +30,31 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    public function filtrarPorPrecioMenorAMayor()
+    {
+        $product = Product::where('pro_status', 1)->orderBy('price', 'asc')->get();
+
+        return response()->json($product);
+    }
+
+    public function filtrarPorPrecioMayorAMenor()
+    {
+        $product = Product::where('pro_status', 1)->orderBy('price', 'desc')->get();
+
+        return response()->json($product);
+    }
+
+    public function filtrarPorCertificado()
+    {
+        $product = Product::where('pro_status', 1)
+            ->where('pro_certs', 'certificado') // Filtramos por productos que están certificados
+            ->get();
+
+        return response()->json($product);
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      */

@@ -45,6 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('provider', ProviderController::class);
     Route::get('auth/logout', [AuthController::class, 'logout']);
+
+
+
 });
 
 
