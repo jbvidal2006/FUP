@@ -14,6 +14,19 @@ class ProductController extends Controller
     public function index()
     {
         $product = product::where('pro_status', 1)->get();
+
+        // Barajamos los productos
+        $product->shuffle();
+        return response()->json($product);
+    }
+
+
+    //FILTROS
+
+    public function filtrarNombre()
+    {
+        $product = Product::where('pro_status', 1)->orderBy('name', 'asc')->get();
+
         return response()->json($product);
     }
 
@@ -30,7 +43,7 @@ class ProductController extends Controller
                 'pro_certs' => 'required',
                 'pro_image' => 'required',
                 'pro_unit' => 'required',
-                'pro_description' =>'required',
+                'pro_description' => 'required',
                 'pro_status' => 'required',
                 'providers_id' => 'required',
                 'categories_id' => 'required'
@@ -49,8 +62,6 @@ class ProductController extends Controller
                 'errors' => $e->errors()
             ], 400);
         }
-
-
     }
 
     /**
@@ -75,7 +86,7 @@ class ProductController extends Controller
                 'pro_certs' => 'required',
                 'pro_image' => 'required',
                 'pro_unit' => 'required',
-                'pro_description' =>'required',
+                'pro_description' => 'required',
                 'pro_status' => 'required',
                 'providers_id' => 'required',
                 'categories_id' => 'required'

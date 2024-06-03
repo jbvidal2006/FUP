@@ -131,6 +131,7 @@ class EnlacesController extends Controller
     {
 
         $join = Provider::join('products', 'providers.id', '=', 'products.providers_id')
+            ->join('people', 'people.id', '=', 'providers.id')
             ->where('providers.id', '=', $id)
             ->select([
                 '*',
