@@ -125,6 +125,29 @@ class EnlacesController extends Controller
             return response()->json($data);
     }
 
+
+
+    public function joinProduProviderID($id)
+    {
+
+        $join = Provider::join('products', 'providers.id', '=', 'products.providers_id')
+            ->where('providers.id', '=', $id)
+            ->select([
+                '*',
+                'providers.id as providers_id',
+                'products.id as products_id'
+
+            ])
+            ->get();
+
+            $data = [
+                'status' => true,
+                'data' => $join
+            ];
+
+            return response()->json($data);
+    }
+
     public function joinReqPeoUsu($id)
     {
 
