@@ -81,7 +81,7 @@ class EnlacesController extends Controller
         // Realiza un inner join entre las tablas Provider y People
         $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
             ->join('people', 'people.id', '=', 'providers.people_peo_id')
-
+            ->where('products.pro_status' ,'=','1')
             ->select([
                 '*',
                 'people.id as people_id',
@@ -106,6 +106,7 @@ class EnlacesController extends Controller
 
         $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
             ->join('people', 'people.id', '=', 'providers.people_peo_id')
+            ->where('products.pro_status' ,'=','1')
             ->where('people.id', '=', $id)
             ->select([
                 '*',
