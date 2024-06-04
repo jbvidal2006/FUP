@@ -47,9 +47,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('auth/logout', [AuthController::class, 'logout']);
 
 
+ //rutas de filtrado
+ Route::get('/filtrarPorNombre', [ProductController::class, 'filtrarPorNombre']);
+ Route::get('/filtrarPorPrecioMenorAMayor', [ProductController::class, 'filtrarPorPrecioMenorAMayor']);
+ Route::get('/filtrarPorPrecioMayorAMenor', [ProductController::class, 'filtrarPorPrecioMayorAMenor']);
+ Route::get('/filtrarPorCertificado', [ProductController::class, 'filtrarPorCertificado']);
+
 
 });
-
 
 
 // ruta adicional

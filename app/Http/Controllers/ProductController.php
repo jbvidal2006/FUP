@@ -27,10 +27,10 @@ class ProductController extends Controller
     public function filtrarPorNombre()
     {
         // Realiza un inner join entre las tablas Provider y People
-        $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
+        $product = Provider::join('products', 'products.providers_id', '=', 'providers.id')
             ->join('people', 'people.id', '=', 'providers.people_peo_id')
             ->where('products.pro_status', '=', '1')
-            ->orderBy('name', 'asc')
+            ->orderBy('products.pro_name', 'asc')
             ->select([
                 '*',
                 'people.id as people_id',
@@ -40,21 +40,17 @@ class ProductController extends Controller
             ])
             ->get();
 
-        $data = [
-            'status' => true,
-            'data' => $join
-        ];
 
-        return response()->json($data);
+        return response()->json($product);
     }
 
     public function filtrarPorPrecioMenorAMayor()
     {
         // Realiza un inner join entre las tablas Provider y People
-        $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
+        $product = Provider::join('products', 'products.providers_id', '=', 'providers.id')
             ->join('people', 'people.id', '=', 'providers.people_peo_id')
             ->where('products.pro_status', '=', '1')
-            ->orderBy('price', 'asc')
+            ->orderBy('products.pro_price', 'asc')
             ->select([
                 '*',
                 'people.id as people_id',
@@ -64,21 +60,17 @@ class ProductController extends Controller
             ])
             ->get();
 
-        $data = [
-            'status' => true,
-            'data' => $join
-        ];
 
-        return response()->json($data);
+        return response()->json($product);
     }
 
     public function filtrarPorPrecioMayorAMenor()
     {
         // Realiza un inner join entre las tablas Provider y People
-        $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
+        $product = Provider::join('products', 'products.providers_id', '=', 'providers.id')
             ->join('people', 'people.id', '=', 'providers.people_peo_id')
             ->where('products.pro_status', '=', '1')
-            ->orderBy('price', 'desc')
+            ->orderBy('products.pro_price', 'desc')
             ->select([
                 '*',
                 'people.id as people_id',
@@ -88,23 +80,18 @@ class ProductController extends Controller
             ])
             ->get();
 
-        $data = [
-            'status' => true,
-            'data' => $join
-        ];
 
-        return response()->json($data);
+        return response()->json($product);
     }
 
 
     public function filtrarPorCertificado()
     {
         // Realiza un inner join entre las tablas Provider y People
-        $join = Provider::join('products', 'products.providers_id', '=', 'providers.id')
+        $product = Provider::join('products', 'products.providers_id', '=', 'providers.id')
             ->join('people', 'people.id', '=', 'providers.people_peo_id')
             ->where('products.pro_status', '=', '1')
             ->where('pro_certs', 'certificado')
-            ->orderBy('price', 'desc')
             ->select([
                 '*',
                 'people.id as people_id',
@@ -114,12 +101,8 @@ class ProductController extends Controller
             ])
             ->get();
 
-        $data = [
-            'status' => true,
-            'data' => $join
-        ];
 
-        return response()->json($data);
+        return response()->json($product);
     }
 
 
