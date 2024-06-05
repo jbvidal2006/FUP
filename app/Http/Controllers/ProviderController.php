@@ -87,6 +87,35 @@ class ProviderController extends Controller
         }
     }
 
+    public function updateOnlyRanking(Request $request, $id)
+    {
+        try {
+            $validatedData = $request->validate([
+                'prov_ranking' => 'required|integer',
+            ]);
+
+            $provider = Provider::findOrFail($id);
+            $provider->update(['prov_ranking' => $validatedData['prov_ranking']]);
+
+            return response()->json([
+                'status' => true,
+                'message' => "Successfully updated ranking",
+                "data" => $provider
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => ['provider_not_found' => 'The provider was not found.']
+            ], 404);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */

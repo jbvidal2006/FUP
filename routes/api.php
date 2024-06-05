@@ -46,6 +46,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('provider', ProviderController::class);
     Route::get('auth/logout', [AuthController::class, 'logout']);
 
+    //actualizar ranking de provider
+    Route::put('/provider/updateOnlyRanking/{id}', [ProviderController::class, 'updateOnlyRanking']);
+
+
+
 
  //rutas de filtrado
  Route::get('/filtrarPorNombre', [ProductController::class, 'filtrarPorNombre']);

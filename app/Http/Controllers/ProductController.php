@@ -170,12 +170,11 @@ class ProductController extends Controller
                 'categories_id' => 'required'
             ]);
 
+            $product->update($validatedData);
 
-            $product = new Product($validatedData);
-            $product->update();
             return response()->json([
                 'status' => true,
-                'message' => "successfully category create"
+                'message' => "producto actualizado"
             ], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
