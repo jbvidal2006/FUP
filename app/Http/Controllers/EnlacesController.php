@@ -179,6 +179,26 @@ class EnlacesController extends Controller
             return response()->json($data);
     }
 
+    public function joinUserPeopleID($id)
+    {
+
+        $join = User::join('people', 'users.people_id', '=', 'people.id')
+            ->where('people.id', '=', $id)
+            ->select([
+                '*' ,
+                'people.id as people_id',
+                'users.id as users_id'
+
+            ])
+            ->get();
+
+            $data = [
+                'status' => true,
+                'data' => $join
+            ];
+            return response()->json($data);
+    }
+
     public function showPeopleUsers(){
         $join = User::join('people', 'users.people_id', '=', 'people.id')
         ->select([
@@ -188,6 +208,8 @@ class EnlacesController extends Controller
 
         ])
         ->get();
+
+
 
         return response()->json($join);
 

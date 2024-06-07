@@ -78,6 +78,7 @@ Route::get('/joinProvedorpeopleID/{id}', [EnlacesController::class, 'joinProvedo
 Route::get('/showReqPeoUsu', [EnlacesController::class, 'showReqPeoUsu']);
 Route::get('/joinProduProviderID/{id}', [EnlacesController::class, 'joinProduProviderID']);
 Route::get('/showPeopleUsers', [EnlacesController::class, 'showPeopleUsers']);
+Route::get('/joinUserPeopleID/{id}', [EnlacesController::class, 'joinUserPeopleID']);
 
 
 

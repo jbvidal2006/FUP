@@ -70,7 +70,7 @@ class UserController extends Controller
         try {
             $validatedData = $request->validate([
                 'use_cc' => 'sometimes|required|unique:users,use_cc,' . $id,
-                'use_password' => 'sometimes|required',
+                'use_password' => 'sometimes',
                 'use_rol' => 'required',
                 'use_status' => 'required',
                 'people_id' => 'required'
@@ -85,7 +85,7 @@ class UserController extends Controller
                 'people_id' => $request->people_id,
             ]);
 
-            // Actualiza el teléfono si se proporciona y es diferente del actual
+            // Actualiza el cedula si se proporciona y es diferente del actual
             if ($request->has('use_cc') && $user->use_cc != $request->use_cc) {
                 $user->update([
                     'use_cc' => $request->use_cc,
