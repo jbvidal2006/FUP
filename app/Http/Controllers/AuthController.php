@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\People;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
+//testing
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -64,4 +69,37 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+
+
+public function saveNewPassword(Request $request)
+{
+    $request->validate([
+        'use_cc' => 'required',
+        'peo_phone' => 'required',
+        'new_password' => 'required',
+    ]);
+
+    $people = People::where('peo_phone', $request->peo_phone)->first();
+
+    if (!$people) {
+        throw ValidationException::withMessages([
+            'peo_phone' => ['Usuario no registrado con este número de teléfono.'],
+        ]);
+    }
+    $user = User::where('use_cc', $request->use_cc)->first();;
+    if (!$user){
+        throw ValidationException::withMessages([
+            'cc_user' => ['la celula no esta '],
+        ]);
+    }
+    $user->forceFill([
+        'use_password' => Hash::make($request->new_password),
+    ])->save();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Contraseña restablecida con éxito.',
+    ], 200);
+}
 }

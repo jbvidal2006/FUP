@@ -179,6 +179,22 @@ class EnlacesController extends Controller
             return response()->json($data);
     }
 
+    public function showPeopleUsers(){
+        $join = User::join('people', 'users.people_id', '=', 'people.id')
+        ->select([
+            '*',
+            'people.id as people_id',
+            'users.id as users_id'
+
+        ])
+        ->get();
+
+        return response()->json($join);
+
+    }
+
+
+
         //mostrar info reques people users
     public function showReqPeoUsu()
     {

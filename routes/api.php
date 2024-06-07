@@ -36,6 +36,10 @@ Route::resource('user', UserController::class);
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::resource('people', PeopleController::class);
 
+//restablecer contraseña
+Route::post('auth/saveNewPassword', [AuthController::class, 'saveNewPassword']);
+
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -62,6 +66,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
+
+
 // ruta adicional
 Route::get('/usuariosPersonas', [EnlacesController::class, 'joinProvPeo']);
 Route::get('/productosProvedoresPernas', [EnlacesController::class, 'joinProdProvPers']);
@@ -71,7 +77,7 @@ Route::get('joinUserPeople/{id}',[EnlacesController::class, 'joinUserPeople']);
 Route::get('/joinProvedorpeopleID/{id}', [EnlacesController::class, 'joinProvedorpeopleID']);
 Route::get('/showReqPeoUsu', [EnlacesController::class, 'showReqPeoUsu']);
 Route::get('/joinProduProviderID/{id}', [EnlacesController::class, 'joinProduProviderID']);
-
+Route::get('/showPeopleUsers', [EnlacesController::class, 'showPeopleUsers']);
 
 
 
