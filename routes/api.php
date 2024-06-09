@@ -38,6 +38,8 @@ Route::resource('people', PeopleController::class);
 
 //restablecer contraseña
 Route::post('auth/saveNewPassword', [AuthController::class, 'saveNewPassword']);
+//buscar usuario por cedula
+Route::get('auth/searchPhoneCCid/{cc}', [AuthController::class, 'searchPhoneCCid']);
 
 
 

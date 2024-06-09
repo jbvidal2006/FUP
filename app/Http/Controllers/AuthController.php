@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\People;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Auth;
 
 //testing
@@ -102,4 +103,27 @@ public function saveNewPassword(Request $request)
         'message' => 'Contraseña restablecida con éxito.',
     ], 200);
 }
+
+
+public function searchPhoneCCid($cc){
+
+    $join = User::join('people', 'people.id', '=', 'users.people_id')
+            ->where('users.use_cc', '=', $cc)
+            ->select([
+                'people.id as people_id',
+                'users.use_cc'
+
+            ])
+            ->get();
+
+
+        $data = [
+            'status' => true,
+            'data' => $join
+        ];
+
+        return response()->json($data);
+
+}
+
 }
