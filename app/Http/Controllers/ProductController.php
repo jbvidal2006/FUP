@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\People;
 use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
@@ -150,6 +151,30 @@ class ProductController extends Controller
 
         return response()->json([$product]);
     }
+
+
+    public function compararSesionProviderConProductProviderID($id_prov_product, $id_sesion)
+    {
+        // Realiza la consulta para obtener el provider_id asociado a la sesión actual
+        $join = People::join('users', 'people.id', '=', 'users.people_id')
+            ->join('providers', 'people.id', '=', 'providers.people_peo_id')
+            ->select(['providers.id as provider_id'])
+            ->where('users.id', '=',$id_sesion)
+            ->get();
+
+        if ($join->isEmpty()) {
+            return  response()->json(['status' => false]);
+        }
+
+        $provider_id_from_db = $join->first()->provider_id;
+
+        if ($provider_id_from_db == $id_prov_product) {
+            return  response()->json(['status' => true]);
+        } else {
+            return  response()->json(['status' => false]);
+        }
+    }
+
 
     /**
      * Update the specified resource in storage.

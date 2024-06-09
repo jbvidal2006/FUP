@@ -127,17 +127,17 @@ class EnlacesController extends Controller
 
 
 
-    public function joinProduProviderID($id)
+    public function unirPeopleProdProviderID($id)
     {
 
         $join = Provider::join('products', 'providers.id', '=', 'products.providers_id')
             ->join('people', 'people.id', '=', 'providers.id')
+            ->where('products.pro_status' , '=' , 1)
             ->where('providers.id', '=', $id)
             ->select([
                 '*',
-                'providers.id as providers_id',
-                'products.id as products_id'
-
+                'providers.id as provider_id',
+                'products.id as product_id'
             ])
             ->get();
 
