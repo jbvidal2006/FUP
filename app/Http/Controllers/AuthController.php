@@ -117,12 +117,8 @@ public function searchPhoneCCid($cc){
             ->get();
 
 
-        $data = [
-            'status' => true,
-            'data' => $join
-        ];
 
-        return response()->json($data);
+        return response()->json($join);
 
 }
 
