@@ -24,9 +24,33 @@ class RequestsAppController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function contrasena(Request $request){
+        try {
+            // Validar los datos de entrada
+            $validatedData = $request->validate([
+                'req_dateRequest' => 'required|date',
+                'req_type' => 'required|string|max:80',
+                'req_description' => 'required',
+                'req_status' => 'required',
+                'people_id' => 'required|integer'
+            ]);
+
+            $provider = new RequestApp($validatedData);
+            $provider->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => "successfully request create"
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        }
+    }
+
+
     public function store(Request $request)
     {
         try {

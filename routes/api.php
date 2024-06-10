@@ -70,7 +70,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //ruta para comparar id del provider producto y provider sesion
 Route::get('/compararSesionProviderConProductProviderID/{id}/{id2}', [ProductController::class, 'compararSesionProviderConProductProviderID']);
-
+//enviar solicitud de recuperar password
+Route::post('requestApp/contrasena',[RequestsAppController::class, 'contrasena']);
 
 
 
