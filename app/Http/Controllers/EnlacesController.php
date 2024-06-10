@@ -234,7 +234,7 @@ class EnlacesController extends Controller
                 'users.use_rol',
                 'request_apps.req_status',
                 'people.id as people_id',
-                'request_apps.id as provider_id',
+                'request_apps.id as request_id',
                 'users.id as users_id'
 
             ])
