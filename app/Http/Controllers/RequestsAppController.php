@@ -102,16 +102,14 @@ class RequestsAppController extends Controller
         try {
             // Validar los datos de entrada
             $validatedData = $request->validate([
-                'req_status' => 'required'
+                'req_dateRequest' => 'required|date',
+                'req_type' => 'required|string|max:80',
+                'req_description' => 'required',
+                'req_status' => 'required',
+                'people_id' => 'required|integer'
             ]);
 
-            $statusUpdate = [
-                'req_status' => $validatedData['req_status']
-            ];
-
-            // Actualizar solo el estado de la solicitud
-            $requestApp->updatePartial($statusUpdate);
-
+            $requestApp->update($validatedData);
 
             return response()->json([
                 'status' => true,
