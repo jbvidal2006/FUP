@@ -75,7 +75,6 @@ Route::post('requestApp/contrasena',[RequestsAppController::class, 'contrasena']
 
 
 
-
 // ruta adicional
 Route::get('/usuariosPersonas', [EnlacesController::class, 'joinProvPeo']);
 Route::get('/productosProvedoresPernas', [EnlacesController::class, 'joinProdProvPers']);
