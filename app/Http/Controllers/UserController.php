@@ -129,4 +129,6 @@ class UserController extends Controller
             'message' => "User successfully deleted"
         ], 200);
     }
+
+
 }

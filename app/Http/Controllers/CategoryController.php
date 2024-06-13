@@ -91,4 +91,34 @@ class CategoryController extends Controller
             'message' => "successfully category delete"
         ], 200);
     }
+
+
+    public function filtroCategoryID($id){
+
+         // Realiza un inner join entre las tablas Provider y People
+         $join = Category::join('products', 'products.categories_id', '=', 'categories.id')
+         ->join('providers', 'providers.id', '=', 'products.providers_id')
+         ->join('people', 'people.id', '=', 'providers.people_peo_id')
+         ->join('users', 'users.people_id', '=', 'people.id' )
+         ->where('products.pro_status', '=', '1')
+         ->where('users.use_status', '=', '1')
+         ->where('categories.id', '=', $id)
+
+         ->select([
+             '*',
+             'people.id as people_id',
+             'providers.id as provider_id',
+             'products.id as product_id',
+             'categories.id as category_id'
+
+         ])
+         ->get();
+
+
+     return response()->json($join);
+
+    }
+
+
+
 }

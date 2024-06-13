@@ -207,6 +207,8 @@ class EnlacesController extends Controller
             'users.id as users_id'
 
         ])
+        ->orderBy('users.use_status', 'desc')
+        ->orderBy('users.use_cc')
         ->get();
 
 
