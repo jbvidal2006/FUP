@@ -25,6 +25,27 @@ class ProductController extends Controller
 
     //FILTROS
 
+    public function filtrarPorUbicacion()
+    {
+
+        // Realiza un inner join entre las tablas Provider y People
+        $product = Provider::join('products', 'products.providers_id', '=', 'providers.id')
+            ->join('people', 'people.id', '=', 'providers.people_peo_id')
+            ->where('products.pro_status', '=', '1')
+            ->orderBy('people.peo_adress', 'asc')
+            ->select([
+                '*',
+                'people.id as people_id',
+                'providers.id as provider_id',
+                'products.id as product_id'
+
+            ])
+            ->get();
+
+
+        return response()->json($product);
+    }
+
     public function filtrarPorNombre()
     {
         // Realiza un inner join entre las tablas Provider y People

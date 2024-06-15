@@ -80,11 +80,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/filtrarPorPrecioMenorAMayor', [ProductController::class, 'filtrarPorPrecioMenorAMayor']);
     Route::get('/filtrarPorPrecioMayorAMenor', [ProductController::class, 'filtrarPorPrecioMayorAMenor']);
     Route::get('/filtrarPorCertificado', [ProductController::class, 'filtrarPorCertificado']);
+    Route::get('/filtrarPorUbicacion', [ProductController::class, 'filtrarPorUbicacion']);
 
 //rutas enlazadas
 Route::get('/showPeopleUsers', [EnlacesController::class, 'showPeopleUsers']);
 
 });
+
+
+
 
 
 //ruta para comparar id del provider producto y provider sesion
