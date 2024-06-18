@@ -25,7 +25,7 @@ class ProductController extends Controller
 
     //FILTROS
 
-    public function filtrarPorUbicacion()
+    public function filtrarPorUbicacion($place)
     {
 
         // Realiza un inner join entre las tablas Provider y People
@@ -40,6 +40,7 @@ class ProductController extends Controller
                 'products.id as product_id'
 
             ])
+            ->where('people.peo_adress', '=', $place)
             ->get();
 
 

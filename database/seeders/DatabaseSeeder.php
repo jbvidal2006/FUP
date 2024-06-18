@@ -14,30 +14,31 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\People::factory(1)->create();
         \App\Models\User::factory(1)->create();
+        \App\Models\Provider::factory(1)->create();
 
 
         \App\Models\Category::factory()->create([
-            'cat_name' => 'frutas',
+            'cat_name' => 'Frescos',
             'cat_description' => 'deciosas, frescas y saludables',
             'cat_image' => 'frutas.png'
         ]);
 
         \App\Models\Category::factory()->create([
-            'cat_name' => 'verduras',
+            'cat_name' => 'Transformados',
             'cat_description' => 'deciosas y nutritivas',
             'cat_image' => 'verduras.png'
         ]);
 
 
         \App\Models\Category::factory()->create([
-            'cat_name' => 'objetos',
+            'cat_name' => 'Artesanales',
             'cat_description' => 'algo material',
             'cat_image' => 'frutas.png'
         ]);
 
 
         \App\Models\Category::factory()->create([
-            'cat_name' => 'otra',
+            'cat_name' => 'Salud y cuidado personal',
             'cat_description' => 'no especifica',
             'cat_image' => 'otra.png'
         ]);

@@ -18,12 +18,12 @@ class PeopleFactory extends Factory
     {
         return [
             "peo_name" => 'FUP',
-            "peo_lastName" => 'FUP',
-            "peo_adress" => 'Calle 5 No. 8 - 58, Popayán, Cauca',
-            "peo_dateBirth" => '1999/05/01',
+            "peo_lastName" => 'Agroecologica',
+            "peo_adress" => 'Popayán',
+            "peo_dateBirth" => '1982/12/14',
             "peo_image" => $this->faker->image,
             "peo_mail" => 'fup@fup.edu.co',
-            "peo_phone" => '3145568894',
+            "peo_phone" => '3333333333',
 
         ];
     }

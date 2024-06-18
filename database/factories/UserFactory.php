@@ -23,7 +23,7 @@ class UserFactory extends Factory
 
             return [
                 'use_cc' => 9999,
-                'use_password' => static::$password ??= Hash::make('1993fup'),
+                'use_password' => static::$password ??= Hash::make('agrofup24'),
                 'use_rol' => 'admin',
                 'use_status' => 1,
                 'people_id' => 1,

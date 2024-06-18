@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RequestsAppController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EnlacesController;
+use App\Http\Controllers\EnviarCorreoController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\UserController;
 
 //para subir imagenes
 use App\Http\Controllers\FileUploadController;
+use App\Mail\enviarCorreo;
+use Illuminate\Support\Facades\Mail;
 
 //ruta para GUARDAR imagenes en local
 Route::post('imagen', [FileUploadController::class, 'upload']);
@@ -80,12 +83,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/filtrarPorPrecioMenorAMayor', [ProductController::class, 'filtrarPorPrecioMenorAMayor']);
     Route::get('/filtrarPorPrecioMayorAMenor', [ProductController::class, 'filtrarPorPrecioMayorAMenor']);
     Route::get('/filtrarPorCertificado', [ProductController::class, 'filtrarPorCertificado']);
-    Route::get('/filtrarPorUbicacion', [ProductController::class, 'filtrarPorUbicacion']);
+    Route::get('/filtrarPorUbicacion/{id}', [ProductController::class, 'filtrarPorUbicacion']);
 
-//rutas enlazadas
+
+//rutas enlazadas token
 Route::get('/showPeopleUsers', [EnlacesController::class, 'showPeopleUsers']);
 
 });
+
 
 
 
@@ -108,3 +113,4 @@ Route::get('/joinProvedorpeopleID/{id}', [EnlacesController::class, 'joinProvedo
 Route::get('/showReqPeoUsu', [EnlacesController::class, 'showReqPeoUsu']);
 Route::get('/joinUserPeopleID/{id}', [EnlacesController::class, 'joinUserPeopleID']);
 Route::get('/joinProduProviderID/{id}', [EnlacesController::class, 'unirPeopleProdProviderID']);
+

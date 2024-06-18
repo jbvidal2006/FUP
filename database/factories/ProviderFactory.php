@@ -17,11 +17,11 @@ class ProviderFactory extends Factory
     public function definition(): array
     {
         return [
-            "prov_ranking" => $this->faker->numberBetween(1,10),
-            "prov_imageRanking" =>$this->faker->image,
-            "prov_email"=> $this->faker->email,
-            "prov_group"=> $this->faker->randomElement(["Rosas", "Timbio", "Popayan", "El tambo"]),
-            "people_peo_id"=> $this->faker->numberBetween(1,10),
+            "prov_ranking" => 0,
+            "prov_group"=> 'FUP',
+            "prov_description"=> 'Universidad privada en Popayán',
+            "prov_status"=> 1,
+            "people_peo_id"=> 1,
         ];
     }
 }
