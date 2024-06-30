@@ -240,6 +240,7 @@ class EnlacesController extends Controller
                 'users.id as users_id'
 
             ])
+            ->orderBy('request_apps.req_status', 'asc')
             ->get();
 
             $data = [

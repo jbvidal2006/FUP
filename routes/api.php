@@ -17,8 +17,6 @@ use App\Http\Controllers\UserController;
 
 //para subir imagenes
 use App\Http\Controllers\FileUploadController;
-use App\Mail\enviarCorreo;
-use Illuminate\Support\Facades\Mail;
 
 //ruta para GUARDAR imagenes en local
 Route::post('imagen', [FileUploadController::class, 'upload']);
