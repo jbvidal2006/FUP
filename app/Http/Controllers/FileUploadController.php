@@ -7,16 +7,22 @@ use Illuminate\Support\Facades\Storage;
 
 class FileUploadController extends Controller
 {
-    public function upload(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file',
-        ]);
 
-        $path = $request->file('file')->store('image', 'public');
-        $url = url('/api/imagen/' . basename($path));
-        return response()->json(['data' => $url]);
-    }
+
+
+    public function upload(Request $request)
+{
+    $request->validate([
+        'file' => 'required',
+    ]);
+
+    // Guarda el archivo en el directorio 'image' dentro del disco 'public'
+    $path = $request->file('file')->store('image', 'public');
+
+    $url = url('storage/image/' . basename($path));
+
+    return response()->json(['data' => $url]);
+}
 
     public function imagenID($urlImage)
     {

@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 //testing
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
+
+use function Laravel\Prompts\select;
 
 class AuthController extends Controller
 {
@@ -73,41 +75,42 @@ class AuthController extends Controller
 
 
 
-public function saveNewPassword(Request $request)
-{
-    $request->validate([
-        'use_cc' => 'required',
-        'peo_phone' => 'required',
-        'new_password' => 'required',
-    ]);
-
-    $people = People::where('peo_phone', $request->peo_phone)->first();
-
-    if (!$people) {
-        throw ValidationException::withMessages([
-            'peo_phone' => ['Usuario no registrado con este número de teléfono.'],
+    public function saveNewPassword(Request $request)
+    {
+        $request->validate([
+            'use_cc' => 'required',
+            'peo_phone' => 'required',
+            'new_password' => 'required',
         ]);
+
+        $people = People::where('peo_phone', $request->peo_phone)->first();
+
+        if (!$people) {
+            throw ValidationException::withMessages([
+                'peo_phone' => ['Usuario no registrado con este número de teléfono.'],
+            ]);
+        }
+        $user = User::where('use_cc', $request->use_cc)->first();;
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'cc_user' => ['la celula no esta '],
+            ]);
+        }
+        $user->forceFill([
+            'use_password' => Hash::make($request->new_password),
+        ])->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Contraseña restablecida con éxito.',
+        ], 200);
     }
-    $user = User::where('use_cc', $request->use_cc)->first();;
-    if (!$user){
-        throw ValidationException::withMessages([
-            'cc_user' => ['la celula no esta '],
-        ]);
-    }
-    $user->forceFill([
-        'use_password' => Hash::make($request->new_password),
-    ])->save();
-
-    return response()->json([
-        'status' => true,
-        'message' => 'Contraseña restablecida con éxito.',
-    ], 200);
-}
 
 
-public function searchPhoneCCid($cc){
+    public function searchPhoneCCid($cc)
+    {
 
-    $join = User::join('people', 'people.id', '=', 'users.people_id')
+        $join = User::join('people', 'people.id', '=', 'users.people_id')
             ->where('users.use_cc', '=', $cc)
             ->select([
                 'people.id as people_id',
@@ -119,7 +122,29 @@ public function searchPhoneCCid($cc){
 
 
         return response()->json($join);
+    }
 
-}
 
+
+    public function verifyToken($tokenActual)
+    {
+        $tokenExists = DB::table('personal_access_tokens')
+            ->where('token', $tokenActual)
+            ->exists();
+
+        if($tokenExists){
+            $estado = true;
+        }else{
+            $estado = false;
+        }
+
+        $data = [
+            'data' => "Estado del token",
+            'status' => $estado,
+        ];
+
+
+        return $data;
+
+    }
 }

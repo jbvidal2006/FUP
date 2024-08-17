@@ -24,6 +24,8 @@ Route::get('imagen/{urlimage}', [FileUploadController::class, 'imagenID']);
 
 //ruta para login
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::get('auth/verifyToken/{token}', [AuthController::class, 'verifyToken']);
+
 
 //restablecer contraseña
 Route::post('auth/saveNewPassword', [AuthController::class, 'saveNewPassword']);
