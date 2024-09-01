@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 class ResetpasswordController extends Controller
 
 {
-    public function mostrarFormRecuperacio() {}
 
     //Esta funcion se usara para crear un token y enviar el correo a la persona que desea recuperar su contraseña
     public function crearTokenAndEnviarCorreo(Request $request)
@@ -61,8 +60,9 @@ class ResetpasswordController extends Controller
     }
 
 
-    public function formularioActualizacion($token) {}
+
+    public function actualizarContraseniaNueva(Request $request) {
 
 
-    public function actualizarContrasenia(Request $request) {}
+    }
 }

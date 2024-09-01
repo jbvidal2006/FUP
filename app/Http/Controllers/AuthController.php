@@ -114,7 +114,8 @@ class AuthController extends Controller
             ->where('users.use_cc', '=', $cc)
             ->select([
                 'people.id as people_id',
-                'users.use_cc'
+                'users.use_cc',
+                'people.peo_mail'
 
             ])
             ->get();
