@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +23,7 @@ class ResetpasswordController extends Controller
         try {
             // Validar los datos de entrada
             $validatedData =  $request->validate([
-                'peo_mail' => 'required|email|exists:people,peo_mail'
+                'peo_mail' => 'required|exists:people,peo_mail'
             ]);
 
              // Generamos un token único
@@ -61,8 +63,38 @@ class ResetpasswordController extends Controller
 
 
 
-    public function actualizarContraseniaNueva(Request $request) {
+    public function actualizarContraseniaNueva(Request $request,$id) {
 
+        try {
+            $validatedData = $request->validate([
+                'use_cc' => 'sometimes|required|unique:users,use_cc,' . $id,
+                'use_password' => 'sometimes',
+            ]);
+
+            $user = User::findOrFail($id);
+
+            // Actualiza si se proporciona
+            if ($request->has('use_password')) {
+                $user->update([
+                    'use_password' => Hash::make($request->use_password),
+                ]);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => "User successfully updated",
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'errors' => $e->errors()
+            ], 400);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "User not found"
+            ], 404);
+        }
 
     }
 }

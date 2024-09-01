@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//<!--<a href="www.mercadoagrocologico/resert/{{$token)}}">Recuperar Contraseña</a>-->
+
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('resetpassword');
 });
 

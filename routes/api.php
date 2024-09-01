@@ -90,6 +90,8 @@ Route::middleware('auth:sanctum')->group(function () {
 //rutas enlazadas token
 Route::get('/showPeopleUsers', [EnlacesController::class, 'showPeopleUsers']);
 
+//ruta para recuperar contraseña por correo
+Route::put('/contraseniaNueva/{token}',[ResetpasswordController::class, 'actualizarContraseniaNueva']);
 });
 
 
