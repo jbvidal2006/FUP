@@ -115,7 +115,8 @@ class AuthController extends Controller
             ->select([
                 'people.id as people_id',
                 'users.use_cc',
-                'people.peo_mail'
+                'people.peo_mail',
+                'users.id as use_id'
 
             ])
             ->get();

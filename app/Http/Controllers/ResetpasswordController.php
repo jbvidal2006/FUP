@@ -23,11 +23,12 @@ class ResetpasswordController extends Controller
         try {
             // Validar los datos de entrada
             $validatedData =  $request->validate([
-                'peo_mail' => 'required|exists:people,peo_mail'
+                'peo_mail' => 'required|exists:people,peo_mail',
+                'use_id' => 'required'
             ]);
 
-             // Generamos un token único
-             $token = Str::random(64);
+            // Generamos un token único
+            $token = Str::random(64);
 
 
             // Eliminamos la anterior reseteo de contraseña sin terminar
@@ -40,7 +41,7 @@ class ResetpasswordController extends Controller
                 'token' => $token,
                 'created_at' => Carbon::now()
             ]);
-            Mail::send('resetpassword', ['token' => $token], function ($message) use ($request) {
+            Mail::send('resetpassword', ['token' => $token, 'use_id' => $request->use_id], function ($message) use ($request) {
                 $message->to($request->peo_mail);
                 $message->subject('Recuperar Contraseña');
             });
@@ -63,13 +64,28 @@ class ResetpasswordController extends Controller
 
 
 
-    public function actualizarContraseniaNueva(Request $request,$id) {
+    public function actualizarContraseniaNueva(Request $request, $id)
+    {
 
         try {
             $validatedData = $request->validate([
-                'use_cc' => 'sometimes|required|unique:users,use_cc,' . $id,
-                'use_password' => 'sometimes',
+                'token' => 'required',
+                'use_password' => 'sometimes|required',
             ]);
+
+            $resetToken = DB::table('password_reset_tokens')
+                ->where('token', $request->token)
+                ->first();
+
+            if (!$resetToken) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "El código de restablecimiento caduco",
+                ], 401);
+
+            }
+
+
 
             $user = User::findOrFail($id);
 
@@ -79,6 +95,8 @@ class ResetpasswordController extends Controller
                     'use_password' => Hash::make($request->use_password),
                 ]);
             }
+
+            DB::table('password_reset_tokens')->where('token', $request->token)->delete();
 
             return response()->json([
                 'status' => true,
@@ -95,6 +113,5 @@ class ResetpasswordController extends Controller
                 'message' => "User not found"
             ], 404);
         }
-
     }
 }

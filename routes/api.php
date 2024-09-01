@@ -90,8 +90,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //rutas enlazadas token
 Route::get('/showPeopleUsers', [EnlacesController::class, 'showPeopleUsers']);
 
-//ruta para recuperar contraseña por correo
-Route::put('/contraseniaNueva/{token}',[ResetpasswordController::class, 'actualizarContraseniaNueva']);
+
 });
 
 
@@ -122,3 +121,6 @@ Route::get('/joinProduProviderID/{id}', [EnlacesController::class, 'unirPeoplePr
 //RUTAS RECUPERAR CONTRASEÑA (testing)
 
 Route::post('/crearTokenAndEnviarCorreo', [ResetpasswordController::class, 'crearTokenAndEnviarCorreo']);
+
+//ruta para recuperar contraseña por correo
+Route::put('/contraseniaNueva/{token}',[ResetpasswordController::class, 'actualizarContraseniaNueva']);
