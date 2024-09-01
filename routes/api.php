@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 
 //para subir imagenes
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\ResetpasswordController;
 
 //ruta para GUARDAR imagenes en local
 Route::post('imagen', [FileUploadController::class, 'upload']);
@@ -114,3 +115,8 @@ Route::get('/showReqPeoUsu', [EnlacesController::class, 'showReqPeoUsu']);
 Route::get('/joinUserPeopleID/{id}', [EnlacesController::class, 'joinUserPeopleID']);
 Route::get('/joinProduProviderID/{id}', [EnlacesController::class, 'unirPeopleProdProviderID']);
 
+
+
+//RUTAS RECUPERAR CONTRASEÑA (testing)
+
+Route::post('/crearTokenAndEnviarCorreo', [ResetpasswordController::class, 'crearTokenAndEnviarCorreo']);
